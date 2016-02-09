@@ -65,7 +65,7 @@ public class ModelTests {
     }
 
 	@Test
-	public void testCorrectPieceIsReturned() throws Exception {
+	public void testCorrectPieceIsReturned() {
 		Set<Piece> pieces = new HashSet<Piece>();
 		Piece piece1 = new Piece(Colour.Red, 3, 5);
 		Piece piece2 = new Piece(Colour.White, 1, 1);
