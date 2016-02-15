@@ -80,4 +80,19 @@ public class ModelTests {
 		assertEquals("The correct piece should be returned", piece3, model.getPiece(7, 4));
 	}
 
+	@Test
+	public void testRemovePieceUpdatesCorrectly() {
+		TestModel model = new TestModel("Test", new TestPlayer());
+		Point position1 = new Point(2,1);
+		Point destination1 = new Point(3,0);
+		Point position2 = new Point(3,0);
+		Point destination2 = new Point(4,1);
+		Point position3 = new Point(4,1);
+		Point destination3 = new Point(6,3);
+
+		assertEquals("RemovePiece works correctly", false, model.removePieceInModel(position1, destination1));
+		assertEquals("RemovePiece works correctly", false, model.removePieceInModel(position2, destination2));
+		assertEquals("RemovePiece works correctly", true, model.removePieceInModel(position3, destination3));
+	}
+
 }

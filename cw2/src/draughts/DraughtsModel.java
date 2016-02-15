@@ -97,9 +97,9 @@ public class DraughtsModel {
             y = (int) (position.getY() + (y / 2));
             Piece piece = getPiece(x, y);
             pieces.remove(piece);
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Returns the Move selected by the users.
