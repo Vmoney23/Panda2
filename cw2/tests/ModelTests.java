@@ -126,4 +126,38 @@ public class ModelTests {
 		assertEquals("Jump works correctly, piece jumped over has been removed", null, model.getPiece(2,2));
 	}
 
+	@Test
+	public void testIntialiseBoard() throws Exception {
+		TestModel model = new TestModel("Test", new TestPlayer());
+		for(int y=0; y<8; y++){
+			for (int x=0; x<8; x++){
+				Piece piece = model.getPiece(x,y);
+				if (y == 0 || y == 2) {
+					if (x == 1 || x == 3 || x == 5 || x == 7) {
+//						assertEquals("Piece should be white", null, piece);
+						assertEquals("Piece should be white", Colour.White, piece.getColour());
+					}
+				}
+				if (y == 1) {
+					if (x == 0 || x == 2 || x == 4 || x == 6) {
+//						assertEquals("Piece should be white", null, piece);
+						assertEquals("Piece should be white", Colour.White, piece.getColour());
+					}
+				}
+				if (y == 5 || y == 7) {
+					if (x == 0 || x == 2 || x == 4 || x == 6) {
+//						assertEquals("Piece should be red", null, piece);
+						assertEquals("Piece should be red", Colour.Red, piece.getColour());
+					}
+				}
+				if (y == 6) {
+					if (x == 1 || x == 3 || x == 5 || x == 7) {
+//						assertEquals("Piece should be red", null, piece);
+						assertEquals("Piece should be red", Colour.Red, piece.getColour());
+					}
+				}
+			}
+		}
+	}
+
 }
