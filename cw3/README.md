@@ -1,4 +1,9 @@
 # Coursework 3, Draughting a board game
+
+For this coursework you will need this zip file:
+
+* [cw3.zip](cw3.zip)
+
 In this coursework, your task is to finish the implementation of the
 draughts game you were working on last week. We have provided a more
 up-to-date version of the game and also a [completed jar
@@ -65,7 +70,7 @@ This method is partially implemented, however it only generates moves to the lef
 
 You will need to make sure that you understand how each `validMoves` method works in order to complete them. Remember that we are not generating any consecutive moves. Below is a diagram showing an example of the valid moves for a piece. The arrows represent the moves the pseudo code in the image should return.
 
-![Board Diagram](https://bitbucket.org/bdkmilne/coursework-3-draughts/downloads/Board-Diagram.png)
+![Board Diagram](Board-Diagram.png)
 
 ***
 
