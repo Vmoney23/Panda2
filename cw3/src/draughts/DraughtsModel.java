@@ -179,15 +179,79 @@ public class DraughtsModel {
     // for only jump Moves.
     // @return the Set of valid Moves for a normal Piece.
     private Set<Move> validMoves(Colour player, Piece piece, int yOffset, boolean jumpOnly) {
+
+        // store valid moves, which we will return
         Set<Move> validMoves = new HashSet<Move>();
-        if (player.equals(Colour.Red)) yOffset = -yOffset;
-        if (!jumpOnly) {
-            if (isEmpty(piece.getX() - 1, piece.getY() + yOffset)) {
-                validMoves.add(new Move(piece, piece.getX() - 1, piece.getY() + yOffset));
+
+        // jump moves
+        // red player
+        if (player.equals(Colour.Red)) {
+            // invert yOffset
+            yOffset = -yOffset;
+
+            // to the left
+            if (getPiece(piece.getX() - 1, piece.getY() - 1).getColour() !=  player
+             && isEmpty(piece.getX() - 2, piece.getY() + 2*yOffset)   ) {
+                 validMoves.add(new Move(piece, piece.getX() - 2, piece.getY() + 2*yOffset));
             }
+
+            // to the right
+            if (getPiece(piece.getX() + 1, piece.getY() - 1).getColour() !=  player
+             && isEmpty(piece.getX() + 2, piece.getY() - 2*yOffset)   ) {
+                 validMoves.add(new Move(piece, piece.getX() + 2, piece.getY() + 2*yOffset));
+            }
+
         }
-        //TODO: We have given an implementation of how to calculate one of the valid
-        // moves (single move to the left), it's your job now to calculate the rest.
+
+        // white player
+        // red player
+        else {
+            // to the right
+            if (getPiece(piece.getX() - 1, piece.getY() + 1).getColour() !=  player
+             && isEmpty(piece.getX() - 2, piece.getY() + 2*yOffset)   ) {
+                 validMoves.add(new Move(piece, piece.getX() - 2, piece.getY() + 2*yOffset));
+            }
+
+            // to the left
+            if (getPiece(piece.getX() + 1, piece.getY() - 1).getColour() !=  player
+             && isEmpty(piece.getX() + 2, piece.getY() - 2*yOffset)   ) {
+                 validMoves.add(new Move(piece, piece.getX() + 2, piece.getY() - 2*yOffset));
+            }
+
+        }
+
+        // non jump moves
+        if (!jumpOnly) {
+
+            // red player
+            if (player.equals(Colour.Red)) {
+                // to the left
+                if (isEmpty(piece.getX() - 1, piece.getY() + yOffset)) {
+                    validMoves.add(new Move(piece, piece.getX() - 1, piece.getY() + yOffset));
+                }
+
+                // to the right
+                if (isEmpty(piece.getX() + 1, piece.getY() + yOffset)) {
+                    validMoves.add(new Move(piece, piece.getX() + 1, piece.getY() + yOffset));
+                }
+            }
+
+            // white player
+            else {
+                // to the right
+                if (isEmpty(piece.getX() - 1, piece.getY() + yOffset)) {
+                    validMoves.add(new Move(piece, piece.getX() - 1, piece.getY() + yOffset));
+                }
+
+                // to the left
+                if (isEmpty(piece.getX() + 1, piece.getY() + yOffset)) {
+                    validMoves.add(new Move(piece, piece.getX() + 1, piece.getY() + yOffset));
+                }
+            }
+
+        }
+
+
         return validMoves;
     }
 
