@@ -50,6 +50,32 @@ public class DraughtsModel {
     // (0, 0) is the top left of the board.
     private void initialisePieces() {
       //TODO:
+
+      this.pieces.add(new Piece(Colour.White, 1, 0));
+      this.pieces.add(new Piece(Colour.White, 3, 0));
+      this.pieces.add(new Piece(Colour.White, 5, 0));
+      this.pieces.add(new Piece(Colour.White, 7, 0));
+      this.pieces.add(new Piece(Colour.White, 0, 1));
+      this.pieces.add(new Piece(Colour.White, 2, 1));
+      this.pieces.add(new Piece(Colour.White, 4, 1));
+      this.pieces.add(new Piece(Colour.White, 6, 1));
+      this.pieces.add(new Piece(Colour.White, 1, 2));
+      this.pieces.add(new Piece(Colour.White, 3, 2));
+      this.pieces.add(new Piece(Colour.White, 5, 2));
+      this.pieces.add(new Piece(Colour.White, 7, 2));
+
+      this.pieces.add(new Piece(Colour.Red, 0, 5));
+      this.pieces.add(new Piece(Colour.Red, 2, 5));
+      this.pieces.add(new Piece(Colour.Red, 4, 5));
+      this.pieces.add(new Piece(Colour.Red, 6, 5));
+      this.pieces.add(new Piece(Colour.Red, 1, 6));
+      this.pieces.add(new Piece(Colour.Red, 3, 6));
+      this.pieces.add(new Piece(Colour.Red, 5, 6));
+      this.pieces.add(new Piece(Colour.Red, 7, 6));
+      this.pieces.add(new Piece(Colour.Red, 0, 7));
+      this.pieces.add(new Piece(Colour.Red, 2, 7));
+      this.pieces.add(new Piece(Colour.Red, 4, 7));
+      this.pieces.add(new Piece(Colour.Red, 6, 7));
     }
 
     /**
