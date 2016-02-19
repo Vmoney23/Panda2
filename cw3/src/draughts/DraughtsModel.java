@@ -164,8 +164,26 @@ public class DraughtsModel {
     // @param player the Colour of the player for whom the Moves should be generated.
     // @return a Set of valid Moves for a player.
     private Set<Move> validMoves(Colour player) {
-        //TODO:
-        return new HashSet<Move>();
+
+        Set<Move> allValidMoves = new HashSet<Move>();
+        int yOffset = 1;
+        boolean jumpOnly = false;
+
+        // loop through pieces for player, calling validMoves for each piece
+        // and adding to validMoves
+        for (Piece piece : this.pieces) {
+            if (piece.getColour() == player) {
+                // add all valid moves for current piece
+                allValidMoves.addAll(validMoves(player, piece, yOffset, jumpOnly));
+
+                // if piece is king, check also with yOffset = -1
+                if (piece.isKing()) {
+                    allValidMoves.addAll(validMoves(player, piece, -yOffset, jumpOnly));
+                }
+            }
+        }
+
+        return allValidMoves;
     }
 
     // Returns the Set of valid Moves for a normal Piece. These will only be one move ahead.
@@ -204,11 +222,10 @@ public class DraughtsModel {
         }
 
         // white player
-        // red player
         else {
             // to the right
             if (getPiece(piece.getX() - 1, piece.getY() + 1).getColour() !=  player
-             && isEmpty(piece.getX() - 2, piece.getY() + 2*yOffset)   ) {
+             && isEmpty(piece.getX() - 2, piece.getY() + 2*yOffset)) {
                  validMoves.add(new Move(piece, piece.getX() - 2, piece.getY() + 2*yOffset));
             }
 
