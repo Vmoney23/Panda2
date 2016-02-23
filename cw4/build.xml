@@ -14,12 +14,12 @@
     <delete dir="${bin.dir}"/>
   </target>
 
-  <target name="make-folders" depends="clean">
+  <target name="make_folders" depends="clean">
     <mkdir dir="${bin.dir}"/>
     <mkdir dir="${classes.dir}"/>
   </target>
 
-  <target name="compile" depends="make-folders">
+  <target name="compile" depends="make_folders">
     <javac debug="true" includeantruntime="false" destdir="${classes.dir}">
       <src path="${src.dir}"/>
     </javac>
