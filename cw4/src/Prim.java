@@ -4,34 +4,46 @@ import java.util.*;
 
 public class Prim {
 
-    private Graph<Integer, Integer> graph;
+    private Graph<Integer, Integer> graph; // NOTE add list nodes = graph.getNodes(); ?
     private Set<Node<Integer>> visitedNodes;
-    private Set<Edge<Integer>> utilisedEdges;
+    private Set<Edge<Integer, Integer>> utilisedEdges;
     private Node<Integer> source;
     private Graph<Integer, Integer> mst;
-    // dists = create map of index of each node v paired with D(v)
-
+    private Map<Node<Integer>, Integer> distances;
 
     public Prim(Graph<Integer, Integer> graph) {
         //TODO: Using the passed in graph, implement Prims algorithm in this
         // class.
 
         this.graph = graph;
-        visitedNodes = new Set<Node<Integer>>();
-        utilisedEdges = new Set<Edge<Integer>>();
-        // source = node of graph with zero index (first node)
-        // init distances as infinity (= Integer.MAX_VALUE)
+        visitedNodes = new HashSet<Node<Integer>>();
+        utilisedEdges = new HashSet<Edge<Integer, Integer>>();
+        source = this.graph.getNode(0); // NOTE simply store 0th index rather
+                                        //      than node?
+        distances = new HashMap<Node<Integer>, Integer>();
+        initDistancesToInfinity();
+
 
         mst = findMinimumSpanningTree();
     }
 
-
+    /** TODO
+     * Set all keys in distances to each node in graph. Initialise all
+     * corresponding values to inifinity
+     */
+    private void initDistancesToInfinity() {
+        // for each node in graph
+        //     put k = node at index i, v = Integer.MAX_VALUE
+        for (Node i : graph.getNodes()) {
+            distances.put(i, Integer.MAX_VALUE);
+        }
+    }
 
     /** TODO
      * Uses Prim's algorithm to find the mimimum spanning tree for graph
      */
     private Graph<Integer, Integer> findMinimumSpanningTree() {
-
+        return graph;
     }
 
 
