@@ -48,7 +48,7 @@ public class Prim {
      * corresponding values to distance to source node
      */
     private void initDistances() {
-        // set k = node, v = infinity for all nodes in graph
+        // set k = node, v = dist to source
         for (Node node : allNodes) {
             distances.put(node, dist(source, node));
         }
@@ -60,21 +60,36 @@ public class Prim {
      */
     private Graph<Integer, Integer> findMinimumSpanningTree() {
 
-        // Select a new current vertex w in V \ W, with minimal D(w)
-        // TODO update to return pair: (minNode, edge from min to source)
-        Pair<Node<Integer>, Edge<Integer, Integer>> min = findMinDistNode();
+        // mst to construct from utilisedEdges after Prims, and then return later
+        Graph minimumSpanningTree = new DirectedGraph<Integer, Integer>();
 
-        // Add current vertex w to W, add related edge to F
-        visitedNodes.add(min.getLeft());
-        utilisedEdges.add(min.getRight());
+        // continue until visitedNodes = allNodes
+        while (!visitedNodes.equals(allNodes)) {
 
-        // Update distances
+            // Select a new current vertex w in V \ W, with minimal D(w)
+            // TODO update to return pair: (minNode, edge from min to source)
+            Pair<Node<Integer>, Edge<Integer, Integer>> min = findMinDistNode();
 
+            // Add current vertex w to W, add related edge to F
+            visitedNodes.add(min.getLeft());
+            utilisedEdges.add(min.getRight());
 
-        // If V = W exit, else recurse/iterate (NOTE: move base case to top?)
+            // Update distances for all v in V \ W
+            for (Node<Integer> v : notVisitedNodes) {
+                distances.replace(v, Dist(v));
+            }
 
+            // construct tree from utilisedEdges
+            for (Node<Integer> node : allNodes) {
+                minimumSpanningTree.add(node);
+            }
+            for (Edge<Integer, Integer> edge : utilisedEdges) {
+                minimumSpanningTree.add(edge);
+            }
 
-        return graph;
+        }
+
+        return minimumSpanningTree;
     }
 
 
@@ -82,7 +97,9 @@ public class Prim {
      * Looks up node with shortest distance to mst (so far) and returns a
      * pair: (cloest vertex, corresponding edge)
      */
-     private Pair<Node<Integer>, Edge<Integer, Integer>> findMinDistNode() {return null;}
+     private Pair<Node<Integer>, Edge<Integer, Integer>> findMinDistNode() {
+         return null;
+     }
 
 
     /** TODO
