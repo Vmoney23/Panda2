@@ -5,7 +5,6 @@ import java.util.*;
 public class Prim {
 
     private Graph<Integer, Integer> graph; // G = (V, E)
-    // NOTE add list nodes = graph.getNodes(); ?
     private Graph<Integer, Integer> mst;
     private Set<Node<Integer>> allNodes; // V
     private Set<Node<Integer>> visitedNodes; // W ⊆ V
@@ -37,9 +36,9 @@ public class Prim {
         // Init F = {}
         utilisedEdges = new HashSet<Edge<Integer, Integer>>();
 
-        // Init D(v) = infinity for all v in V (approx infinity = Integer.MAX_VALUE)
+        // Init D(v) = d(s, v) for all v in V
         distances = new HashMap<Node<Integer>, Integer>();
-        initDistancesToInfinity();
+        initDistances();
 
         // Find minimum spanning tree
         mst = findMinimumSpanningTree();
@@ -48,12 +47,12 @@ public class Prim {
 
     /**
      * Set all keys in distances to each node in graph. Initialise all
-     * corresponding values to inifinity
+     * corresponding values to distance to source node
      */
-    private void initDistancesToInfinity() {
+    private void initDistances() {
         // set k = node, v = infinity for all nodes in graph
-        for (Node i : graph.getNodes()) {
-            distances.put(i, Integer.MAX_VALUE);
+        for (Node node : allNodes) {
+            distances.put(node, dist(source, node));
         }
     }
 
@@ -63,7 +62,16 @@ public class Prim {
      */
     private Graph<Integer, Integer> findMinimumSpanningTree() {
 
-        // Select a new current vertex w in visitedNodes \
+        // Select a new current vertex w in V \ W, with minimal D(w)
+
+
+        // Add current vertex w to W, add related edge to F
+
+
+        // Update distances
+
+
+        // If V = W exit, else recurse/iterate (NOTE: move base case to top?)
 
 
         return graph;
