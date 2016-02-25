@@ -4,8 +4,6 @@ import java.util.*;
 
 public class Dijkstra {
 
-	private
-
     public Dijkstra(Graph<Integer, Integer> graph) {
         //TODO: Using the passed in graph, implement Dijkstras algorithm in this
         // class.

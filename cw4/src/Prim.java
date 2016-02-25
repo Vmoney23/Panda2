@@ -17,21 +17,19 @@ public class Prim {
     public Prim(Graph<Integer, Integer> graph) {
         this.graph = graph;
 
-        source = this.graph.getNode(0); // NOTE simply store 0th index rather
-                                        //      than node?
+        source = this.graph.getNode(1); // NOTE maybe fix, looks for node value = 1
 
         // Init V = {v | v <- graph}
-        allNodes = new HashSet<Node<Integer>>(graph); // NOTE possible need
-                                                      //      graph.getNodes
+        allNodes = new HashSet<Node<Integer>>(graph.getNodes()); // NOTE possible need
+                                                                 // graph.getNodes()
 
         // Init W = {s}
         visitedNodes = new HashSet<Node<Integer>>();
         visitedNodes.add(source);
 
         // Init V \ W = setNodes.removeAll(visitedNodes)
-        tmp = new HashSet<Node<Integer>>(allNodes);
-        notVisitedNodes = new HashSet<Node<Integer>>(tmp.removeAll(visitedNodes));
-        tmp = null;
+        Set<Node<Integer>> notVisitedNodes = new HashSet<Node<Integer>>(allNodes);
+        notVisitedNodes.removeAll(visitedNodes);
 
         // Init F = {}
         utilisedEdges = new HashSet<Edge<Integer, Integer>>();
@@ -63,10 +61,12 @@ public class Prim {
     private Graph<Integer, Integer> findMinimumSpanningTree() {
 
         // Select a new current vertex w in V \ W, with minimal D(w)
-
+        // TODO update to return pair: (minNode, edge from min to source)
+        Pair<Node<Integer>, Edge<Integer, Integer>> min = findMinDistNode();
 
         // Add current vertex w to W, add related edge to F
-
+        visitedNodes.add(min.getLeft());
+        utilisedEdges.add(min.getRight());
 
         // Update distances
 
@@ -76,6 +76,13 @@ public class Prim {
 
         return graph;
     }
+
+
+    /** TODO
+     * Looks up node with shortest distance to mst (so far) and returns a
+     * pair: (cloest vertex, corresponding edge)
+     */
+     private Pair<Node<Integer>, Edge<Integer, Integer>> findMinDistNode() {return null;}
 
 
     /** TODO
