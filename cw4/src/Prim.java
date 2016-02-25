@@ -4,45 +4,68 @@ import java.util.*;
 
 public class Prim {
 
-    private Graph<Integer, Integer> graph; // NOTE add list nodes = graph.getNodes(); ?
-    private Set<Node<Integer>> visitedNodes;
-    private Set<Edge<Integer, Integer>> utilisedEdges;
-    private Node<Integer> source;
+    private Graph<Integer, Integer> graph; // G = (V, E)
+    // NOTE add list nodes = graph.getNodes(); ?
     private Graph<Integer, Integer> mst;
+    private Set<Node<Integer>> allNodes; // V
+    private Set<Node<Integer>> visitedNodes; // W ⊆ V
+    private Set<Node<Integer>> notVisitedNodes; // V \ W
+    private Set<Edge<Integer, Integer>> utilisedEdges; // F ⊆ E
+    private Node<Integer> source; // s ∈ V
     private Map<Node<Integer>, Integer> distances;
 
-    public Prim(Graph<Integer, Integer> graph) {
-        //TODO: Using the passed in graph, implement Prims algorithm in this
-        // class.
 
+    public Prim(Graph<Integer, Integer> graph) {
         this.graph = graph;
-        visitedNodes = new HashSet<Node<Integer>>();
-        utilisedEdges = new HashSet<Edge<Integer, Integer>>();
+
         source = this.graph.getNode(0); // NOTE simply store 0th index rather
                                         //      than node?
+
+        // Init V = {v | v <- graph}
+        allNodes = new HashSet<Node<Integer>>(graph); // NOTE possible need
+                                                      //      graph.getNodes
+
+        // Init W = {s}
+        visitedNodes = new HashSet<Node<Integer>>();
+        visitedNodes.add(source);
+
+        // Init V \ W = setNodes.removeAll(visitedNodes)
+        tmp = new HashSet<Node<Integer>>(allNodes);
+        notVisitedNodes = new HashSet<Node<Integer>>(tmp.removeAll(visitedNodes));
+        tmp = null;
+
+        // Init F = {}
+        utilisedEdges = new HashSet<Edge<Integer, Integer>>();
+
+        // Init D(v) = infinity for all v in V (approx infinity = Integer.MAX_VALUE)
         distances = new HashMap<Node<Integer>, Integer>();
         initDistancesToInfinity();
 
-
+        // Find minimum spanning tree
         mst = findMinimumSpanningTree();
     }
 
-    /** TODO
+
+    /**
      * Set all keys in distances to each node in graph. Initialise all
      * corresponding values to inifinity
      */
     private void initDistancesToInfinity() {
-        // for each node in graph
-        //     put k = node at index i, v = Integer.MAX_VALUE
+        // set k = node, v = infinity for all nodes in graph
         for (Node i : graph.getNodes()) {
             distances.put(i, Integer.MAX_VALUE);
         }
     }
 
+
     /** TODO
      * Uses Prim's algorithm to find the mimimum spanning tree for graph
      */
     private Graph<Integer, Integer> findMinimumSpanningTree() {
+
+        // Select a new current vertex w in visitedNodes \
+
+
         return graph;
     }
 
@@ -58,9 +81,9 @@ public class Prim {
         return -1;
     }
 
+
     /** TODO
      * Finds immediate distance between mst so far and given vertex in graph
-     * & not in MST
      *
      * @param vertex the vertex to find shortest immediate distance to MST for
      */
@@ -68,6 +91,7 @@ public class Prim {
         // find min(D(v), d(w, v))
         return -1;
     }
+
 
     /**
      * Returns minimum spanning tree for graph
