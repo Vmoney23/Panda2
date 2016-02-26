@@ -14,6 +14,10 @@ public class Prim {
     private Map<Node<Integer>, Integer> distances;
 
 
+    /**
+     * Initialises all properties ready to run Prims.
+     * Then calls findMinimumSpanningTree to get value for mst
+     */
     public Prim(Graph<Integer, Integer> graph) {
         this.graph = graph;
 
@@ -55,7 +59,7 @@ public class Prim {
     }
 
 
-    /** TODO
+    /**
      * Uses Prim's algorithm to find the mimimum spanning tree for graph
      */
     private Graph<Integer, Integer> findMinimumSpanningTree() {
@@ -98,19 +102,32 @@ public class Prim {
      * pair: (cloest vertex, corresponding edge)
      */
      private Pair<Node<Integer>, Edge<Integer, Integer>> findMinDistNode() {
+
+
          return null;
      }
 
 
-    /** TODO
-     * Finds the shortest immediate distance between nodes v1 and v2. If not
+    /**
+     * Finds the shortest immediate distance from node v1 to v2. If not
      * directly connected, will return infinity (Integer.MAX_VALUE)
      *
-     * @param v1 the first node to find distance between
-     * @param v2 the second node to find distance between
+     * @param v1 the first node to find distance between (edge source)
+     * @param v2 the second node to find distance between (edge target)
      */
     private Integer dist(Node<Integer> v1, Node<Integer> v2) {
-        return -1;
+        Integer distance = new Integer(Integer.MAX_VALUE);
+
+        // if edge exists, return edge.getData.
+        // Else, will return Integer.MAX_VALUE
+        for (Edge<Integer, Integer> edge : graph.getEdgesFrom(v1)) {
+            if (edge.getTarget().equals(v2)) {
+                distance = edge.getData();
+                break;
+            }
+        }
+
+        return distance;
     }
 
 
