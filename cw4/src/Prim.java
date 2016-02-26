@@ -2,6 +2,8 @@ import graph.*;
 
 import java.util.*;
 
+/*TODO UPDATE TO CHANGE D(V) = 0 WHEN ADDED TO MST*/
+
 public class Prim {
 
     private Graph<Integer, Integer> graph; // G = (V, E)
@@ -11,7 +13,7 @@ public class Prim {
     private Set<Node<Integer>> notVisitedNodes; // V \ W
     private Set<Edge<Integer, Integer>> utilisedEdges; // F ⊆ E
     private Node<Integer> source; // s ∈ V
-    private Map<Node<Integer>, Integer> distances;
+    private Map<Node<Integer>, Edge<Integer, Integer>> distances;
 
 
     /**
@@ -39,7 +41,7 @@ public class Prim {
         utilisedEdges = new HashSet<Edge<Integer, Integer>>();
 
         // Init D(v) = d(s, v) for all v in V
-        distances = new HashMap<Node<Integer>, Integer>();
+        distances = new HashMap<Node<Integer>, Edge<Integer, Integer>>();
         initDistances();
 
         // Find minimum spanning tree
@@ -49,12 +51,14 @@ public class Prim {
 
     /**
      * Set all keys in distances to each node in graph. Initialise all
-     * corresponding values to distance to source node
+     * corresponding values to edge from node to source with corresponding
+     * distance. If Edge doesn't exist, new edge with distance infinity is
+     * created. <-NOTE
      */
     private void initDistances() {
-        // set k = node, v = dist to source
+        // set k = node, v = new Edge(node, source, distance from node to source)
         for (Node node : allNodes) {
-            distances.put(node, dist(source, node));
+            distances.put(node, new Edge(node, source, dist(node, source))); /*NOTE okay to create new edge?*/
         }
     }
 
@@ -100,9 +104,17 @@ public class Prim {
      * pair: (cloest vertex, corresponding edge)
      */
      private Pair<Node<Integer>, Edge<Integer, Integer>> findMinDistNode() {
+         Pair<Node<Integer>, Edge<Integer, Integer>> closest = null;
 
+         for (Node<Integer> node : notVisitedNodes) {
+             // if node closer than closest, update closest
+             if (distances.get(node).getData() < closest.getRight().getData()) {
+                 closest = new Pair<Node<Integer>, Edge<Integer, Integer>>(node, distances.get(node));
+             }
 
-         return null;
+         }
+
+         return closest;
      }
 
 
@@ -129,27 +141,27 @@ public class Prim {
     }
 
 
-    /** TODO
+    /** TODO change to return Edge<Integer, Integer>
      * Returns immediate distance between mst so far and given vertex in graph
-     * TODO Change so only checks for distance to last node added to the mst so far
+     * NOTE Only checks for distance to last node added to the mst so far
      *
      * @param vertex the vertex to find shortest immediate distance to MST for
      */
-    private Integer Dist(Node<Integer> vertex) {
+    private Edge<Integer, Integer> Dist(Node<Integer> vertex) {
         // find min(D(v), d(w, v)) //
 
         // find d(vertex, node) for last node added
-        Integer distToNewNode = dist(vertex, visitedNodes.getLast());
+        Edge<Integer, Integer> edgeToNewNode = new Edge(vertex, visitedNodes.getLast(), dist(vertex, visitedNodes.getLast()));
 
         // set shortestDist to distance to mst now (before updating)
-        Integer shortestDist = new Integer(distances.get(vertex));
+        Edge<Integer, Integer> shortestDistEdge = distances.get(vertex);
 
-        // if distance to newly added node less, return that instead
-        if (distToNewNode < distances.get(vertex)) {
-            shortestDist = distToNewNode;
+        // if distance to newly added node is less, return that instead
+        if (edgeToNewNode.getData() < shortestDistEdge.getData()) {
+            shortestDistEdge = edgeToNewNode;
         }
 
-        return shortestDist;
+        return shortestDistEdge;
     }
 
 
