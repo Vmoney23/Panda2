@@ -7,7 +7,7 @@ public class Prim {
     private Graph<Integer, Integer> graph; // G = (V, E)
     private Graph<Integer, Integer> mst;
     private Set<Node<Integer>> allNodes; // V
-    private List<Node<Integer>> visitedNodes; // W ⊆ V
+    private LinkedList<Node<Integer>> visitedNodes; // W ⊆ V
     private Set<Node<Integer>> notVisitedNodes; // V \ W
     private Set<Edge<Integer, Integer>> utilisedEdges; // F ⊆ E
     private Node<Integer> source; // s ∈ V
@@ -130,7 +130,7 @@ public class Prim {
 
 
     /** TODO
-     * Finds immediate distance between mst so far and given vertex in graph
+     * Returns immediate distance between mst so far and given vertex in graph
      * TODO Change so only checks for distance to last node added to the mst so far
      *
      * @param vertex the vertex to find shortest immediate distance to MST for
@@ -139,11 +139,17 @@ public class Prim {
         // find min(D(v), d(w, v)) //
 
         // find d(vertex, node) for last node added
-        //Integer distToNewNode = dist(vertex, )
+        Integer distToNewNode = dist(vertex, visitedNodes.getLast());
 
+        // set shortestDist to distance to mst now (before updating)
+        Integer shortestDist = new Integer(distances.get(vertex));
 
+        // if distance to newly added node less, return that instead
+        if (distToNewNode < distances.get(vertex)) {
+            shortestDist = distToNewNode;
+        }
 
-        return -1;
+        return shortestDist;
     }
 
 
