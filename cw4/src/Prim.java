@@ -7,7 +7,7 @@ public class Prim {
     private Graph<Integer, Integer> graph; // G = (V, E)
     private Graph<Integer, Integer> mst;
     private Set<Node<Integer>> allNodes; // V
-    private Set<Node<Integer>> visitedNodes; // W ⊆ V
+    private List<Node<Integer>> visitedNodes; // W ⊆ V
     private Set<Node<Integer>> notVisitedNodes; // V \ W
     private Set<Edge<Integer, Integer>> utilisedEdges; // F ⊆ E
     private Node<Integer> source; // s ∈ V
@@ -28,7 +28,7 @@ public class Prim {
                                                                  // graph.getNodes()
 
         // Init W = {s}
-        visitedNodes = new HashSet<Node<Integer>>();
+        visitedNodes = new LinkedList<Node<Integer>>();
         visitedNodes.add(source);
 
         // Init V \ W = setNodes.removeAll(visitedNodes)
@@ -71,7 +71,6 @@ public class Prim {
         while (!visitedNodes.equals(allNodes)) {
 
             // Select a new current vertex w in V \ W, with minimal D(w)
-            // TODO update to return pair: (minNode, edge from min to source)
             Pair<Node<Integer>, Edge<Integer, Integer>> min = findMinDistNode();
 
             // Add current vertex w to W, add related edge to F
@@ -82,15 +81,14 @@ public class Prim {
             for (Node<Integer> v : notVisitedNodes) {
                 distances.replace(v, Dist(v));
             }
+        }
 
-            // construct tree from utilisedEdges
-            for (Node<Integer> node : allNodes) {
-                minimumSpanningTree.add(node);
-            }
-            for (Edge<Integer, Integer> edge : utilisedEdges) {
-                minimumSpanningTree.add(edge);
-            }
-
+        // construct tree from utilisedEdges
+        for (Node<Integer> node : allNodes) {
+            minimumSpanningTree.add(node);
+        }
+        for (Edge<Integer, Integer> edge : utilisedEdges) {
+            minimumSpanningTree.add(edge);
         }
 
         return minimumSpanningTree;
@@ -133,11 +131,18 @@ public class Prim {
 
     /** TODO
      * Finds immediate distance between mst so far and given vertex in graph
+     * TODO Change so only checks for distance to last node added to the mst so far
      *
      * @param vertex the vertex to find shortest immediate distance to MST for
      */
     private Integer Dist(Node<Integer> vertex) {
-        // find min(D(v), d(w, v))
+        // find min(D(v), d(w, v)) //
+
+        // find d(vertex, node) for last node added
+        //Integer distToNewNode = dist(vertex, )
+
+
+
         return -1;
     }
 
