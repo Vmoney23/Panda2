@@ -35,7 +35,7 @@ public class Prim {
         visitedNodes.add(source);
 
         // Init V \ W = setNodes.removeAll(visitedNodes)
-        LinkedList<Node<Integer>> notVisitedNodes = new LinkedList<Node<Integer>>(allNodes);
+        notVisitedNodes = new LinkedList<Node<Integer>>(allNodes);
         notVisitedNodes.remove(source);
 
         // Init F = {}
@@ -108,11 +108,11 @@ public class Prim {
      */
      private Pair<Node<Integer>, Edge<Integer, Integer>> findMinDistNode() {
 
-         Pair<Node<Integer>, Edge<Integer, Integer>> closest = new Pair<Node<Integer>, Edge<Integer, Integer>>(notVisitedNodes.getFirst(), distances.get(notVisitedNodes.getFirst()));
+         Pair<Node<Integer>, Edge<Integer, Integer>> closest = new Pair(notVisitedNodes.getFirst(), distances.get(notVisitedNodes.getFirst()));
 
          for (Node<Integer> node : notVisitedNodes) {
              // store current node
-             Pair<Node<Integer>, Edge<Integer, Integer>> current = new Pair<Node<Integer>, Edge<Integer, Integer>>(node, distances.get(node));
+             Pair<Node<Integer>, Edge<Integer, Integer>> current = new Pair(node, distances.get(node));
 
              // if current node closer than closest, update closest
              if (distances.get(node).getData() < current.getRight().getData()) {
