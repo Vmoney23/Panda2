@@ -29,14 +29,21 @@ public class Prim {
         // Init V = {v | v <- graph}
         allNodes = new HashSet<Node<Integer>>(graph.getNodes()); // NOTE possible need
                                                                  // graph.getNodes()
+        System.err.print("allNodes:");
+        System.err.println(Arrays.toString(allNodes.toArray()));
+
 
         // Init W = {s}
         visitedNodes = new LinkedList<Node<Integer>>();
         visitedNodes.add(source);
+        System.err.print("visitedNodes:");
+        System.err.println(Arrays.toString(visitedNodes.toArray()));
 
         // Init V \ W = setNodes.removeAll(visitedNodes)
         notVisitedNodes = new LinkedList<Node<Integer>>(allNodes);
         notVisitedNodes.remove(source);
+        System.err.print("notVisitedNodes:");
+        System.err.println(Arrays.toString(notVisitedNodes.toArray()));
 
         // Init F = {}
         utilisedEdges = new HashSet<Edge<Integer, Integer>>();
@@ -84,6 +91,12 @@ public class Prim {
             visitedNodes.add(min.getLeft());
             utilisedEdges.add(min.getRight());
 
+            // Remove added node from distances map
+            distances.remove(min.getLeft());
+
+            // Remove from notVisitedNodes?
+            notVisitedNodes.remove(min.getLeft());
+
             // Update distances for all v in V \ W
             for (Node<Integer> v : notVisitedNodes) {
                 distances.replace(v, Dist(v));
@@ -102,13 +115,13 @@ public class Prim {
     }
 
 
-    /** TODO
+    /**
      * Looks up node with shortest distance to mst (so far) and returns a
      * pair: (cloest vertex, corresponding edge)
      */
      private Pair<Node<Integer>, Edge<Integer, Integer>> findMinDistNode() {
 
-         Pair<Node<Integer>, Edge<Integer, Integer>> closest = new Pair(notVisitedNodes.getFirst(), distances.get(notVisitedNodes.getFirst()));
+         Pair<Node<Integer>, Edge<Integer, Integer>> closest = new Pair(notVisitedNodes.peekFirst(), distances.get(notVisitedNodes.peekFirst()));
 
          for (Node<Integer> node : notVisitedNodes) {
              // store current node
@@ -155,7 +168,7 @@ public class Prim {
      */
     private Edge<Integer, Integer> Dist(Node<Integer> vertex) {
 
-        // find d(vertex, node) for last node added
+        // find d(vertex, node) and corresponding edge for last node added
         Edge<Integer, Integer> edgeToNewNode = new Edge(vertex, visitedNodes.getLast(), dist(vertex, visitedNodes.getLast()));
 
         // set shortestDist to distance to mst now (before updating)
