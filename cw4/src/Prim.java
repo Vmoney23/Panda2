@@ -145,7 +145,7 @@ public class Prim {
              Pair<Node<Integer>, Edge<Integer, Integer>> current = new Pair(node, distances.get(node));
 
              // if current node closer than closest, update closest
-             if (distances.get(node).getData() < current.getRight().getData()) {
+             if (current.getRight().getData() < closest.getRight().getData()) {
                  closest = current;
              }
          }
@@ -182,7 +182,7 @@ public class Prim {
     }
 
 
-    /** TODO change to return Edge<Integer, Integer>
+    /**
      * Returns immediate distance between mst so far and given vertex in graph
      * NOTE Only checks for distance to last node added to the mst so far, and
      *      previous D(v)
