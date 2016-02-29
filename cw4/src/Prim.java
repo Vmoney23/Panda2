@@ -83,7 +83,7 @@ public class Prim {
     private Graph<Integer, Integer> findMinimumSpanningTree() {
 
         // mst to construct from utilisedEdges after Prims, and then return later
-        Graph minimumSpanningTree = new DirectedGraph<Integer, Integer>();
+        Graph minimumSpanningTree = new UndirectedGraph<Integer, Integer>();
 
         // continue until visitedNodes = allNodes
         while (!notVisitedNodes.isEmpty()) {

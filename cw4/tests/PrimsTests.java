@@ -25,24 +25,24 @@ public class PrimsTests {
         containsAllEdges(expectedEdges, edges);
     }
 
-    // @Test
-    // public void testPrimsOnMediumGraph() throws Exception {
-    //     TestGraphReader graphReader = new TestGraphReader();
-    //     Graph<Integer, Integer> graph = graphReader.readGraph("medium-graph.txt");
-    //
-    //     Graph<Integer, Integer> expectedGraph = graphReader.readGraph("mst-medium-graph.txt");
-    //
-    //     Prim prim = new Prim(graph);
-    //
-    //     Graph<Integer, Integer> minimumSpanningTree = prim.getMinimumSpanningTree();
-    //     List<Edge<Integer, Integer>> edges = minimumSpanningTree.getEdges();
-    //     List<Edge<Integer, Integer>> expectedEdges = expectedGraph.getEdges();
-    //     assertTrue("The number of edges in the minimum spanning tree should be " + expectedEdges.size() + ".",
-    //                 edges.size() == expectedEdges.size());
-    //
-    //     containsAllNodes(expectedGraph.getNodes(), minimumSpanningTree.getNodes());
-    //     containsAllEdges(expectedEdges, edges);
-    // }
+    @Test
+    public void testPrimsOnMediumGraph() throws Exception {
+        TestGraphReader graphReader = new TestGraphReader();
+        Graph<Integer, Integer> graph = graphReader.readGraph("medium-graph.txt");
+
+        Graph<Integer, Integer> expectedGraph = graphReader.readGraph("mst-medium-graph.txt");
+
+        Prim prim = new Prim(graph);
+
+        Graph<Integer, Integer> minimumSpanningTree = prim.getMinimumSpanningTree();
+        List<Edge<Integer, Integer>> edges = minimumSpanningTree.getEdges();
+        List<Edge<Integer, Integer>> expectedEdges = expectedGraph.getEdges();
+        assertTrue("The number of edges in the minimum spanning tree should be " + expectedEdges.size() + ".",
+                    edges.size() == expectedEdges.size());
+
+        containsAllNodes(expectedGraph.getNodes(), minimumSpanningTree.getNodes());
+        containsAllEdges(expectedEdges, edges);
+    }
 
     private void containsAllNodes(List<Node<Integer>> expected, List<Node<Integer>> actual) {
         for (Node<Integer> node : expected) {
