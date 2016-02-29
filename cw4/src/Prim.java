@@ -29,20 +29,20 @@ public class Prim {
         // Init V = {v | v <- graph}
         allNodes = new HashSet<Node<Integer>>(graph.getNodes()); // NOTE possible need
                                                                  // graph.getNodes()
-        System.err.print("allNodes:");
+        System.err.print("start allNodes:");
         System.err.println(Arrays.toString(allNodes.toArray()));
 
 
         // Init W = {s}
         visitedNodes = new LinkedList<Node<Integer>>();
         visitedNodes.add(source);
-        System.err.print("visitedNodes:");
+        System.err.print("start visitedNodes:");
         System.err.println(Arrays.toString(visitedNodes.toArray()));
 
         // Init V \ W = setNodes.removeAll(visitedNodes)
         notVisitedNodes = new LinkedList<Node<Integer>>(allNodes);
         notVisitedNodes.remove(source);
-        System.err.print("notVisitedNodes:");
+        System.err.print("start notVisitedNodes:");
         System.err.println(Arrays.toString(notVisitedNodes.toArray()));
 
         // Init F = {}
@@ -69,7 +69,11 @@ public class Prim {
             distances.put(node, new Edge(node, source, dist(node, source))); /*NOTE okay to create new edge?*/
         }
 
-        // remove source node (already in mst) TODO
+        // remove source node (already in mst)
+        distances.remove(source);
+
+        System.err.print("Distances: ");
+        System.err.println(distances.toString());
     }
 
 
@@ -82,10 +86,11 @@ public class Prim {
         Graph minimumSpanningTree = new DirectedGraph<Integer, Integer>();
 
         // continue until visitedNodes = allNodes
-        while (!visitedNodes.equals(allNodes)) {
+        while (!notVisitedNodes.isEmpty()) {
 
             // Select a new current vertex w in V \ W, with minimal D(w)
             Pair<Node<Integer>, Edge<Integer, Integer>> min = findMinDistNode();
+
 
             // Add current vertex w to W, add related edge to F
             visitedNodes.add(min.getLeft());
@@ -94,13 +99,25 @@ public class Prim {
             // Remove added node from distances map
             distances.remove(min.getLeft());
 
-            // Remove from notVisitedNodes?
+            // Remove from notVisitedNodes
             notVisitedNodes.remove(min.getLeft());
 
             // Update distances for all v in V \ W
             for (Node<Integer> v : notVisitedNodes) {
                 distances.replace(v, Dist(v));
             }
+
+            System.err.println("\n===NEXT ITR===:");
+            System.err.print("min: ");
+            System.err.println(min.getRight().toString());
+            System.err.print("visitedNodes: ");
+            System.err.println(visitedNodes.toString());
+            System.err.print("notVisitedNodes: ");
+            System.err.println(notVisitedNodes.toString());
+            System.err.print("utilisedEdges: ");
+            System.err.println(utilisedEdges.toString());
+            System.err.print("Distances: ");
+            System.err.println(distances.toString());
         }
 
         // construct tree from utilisedEdges
@@ -146,12 +163,18 @@ public class Prim {
     private Integer dist(Node<Integer> v1, Node<Integer> v2) {
         Integer distance = new Integer(Integer.MAX_VALUE);
 
-        // if edge exists, return edge.getData.
-        // Else, will return Integer.MAX_VALUE
-        for (Edge<Integer, Integer> edge : graph.getEdgesFrom(v1)) {
-            if (edge.getTarget().equals(v2)) {
-                distance = edge.getData();
-                break;
+        // if v1==v2, return 0
+        if (v1 == v2) {
+            distance = 0;
+        }
+        else {
+            // if edge exists, return edge.getData()
+            // Else, will return Integer.MAX_VALUE
+            for (Edge<Integer, Integer> edge : graph.getEdgesFrom(v1)) {
+                if (edge.getTarget().equals(v2)) {
+                    distance = edge.getData();
+                    break;
+                }
             }
         }
 
