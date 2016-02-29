@@ -20,7 +20,7 @@ public class DijkstrasTests {
 
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        List<Integer> actualNodes = dijkstra.shortestPath(1, 7);
+        List<Integer> actualNodes = dijkstra.shortestPath(1, 7, graph);
         assertEquals("The shortest path between 1 and 7 should contain nodes 1, 2, 4, 5 and 7",
                       expectedNodes, actualNodes);
     }
@@ -44,7 +44,7 @@ public class DijkstrasTests {
 
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        List<Integer> actualNodes = dijkstra.shortestPath(1, 34);
+        List<Integer> actualNodes = dijkstra.shortestPath(1, 34, graph);
         assertEquals("The shortest path between 1 and 34 should contain nodes 1, 2, 6, 7, 8, 12, 14, 18, 21 and 34",
                       expectedNodes, actualNodes);
     }
@@ -76,7 +76,7 @@ public class DijkstrasTests {
 
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        List<Integer> actualNodes = dijkstra.shortestPath(1, 199);
+        List<Integer> actualNodes = dijkstra.shortestPath(1, 199, graph);
         assertEquals("The shortest path between 1 and 199 should contain nodes 1, 9, 20, 33, 46, 61, 78, 97, 109, 124, 138, 152, 153, 167, 168, 184, 185 and 199",
                       expectedNodes, actualNodes);
     }
