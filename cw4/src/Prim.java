@@ -2,9 +2,6 @@ import graph.*;
 
 import java.util.*;
 
-/*TODO UPDATE TO CHANGE D(V) = 0 WHEN ADDED TO MST*/
-/***** remove each node added from distances*******/
-
 public class Prim {
 
     private Graph<Integer, Integer> graph; // G = (V, E)
@@ -27,8 +24,8 @@ public class Prim {
         source = this.graph.getNode(1); // NOTE maybe fix, looks for node value = 1
 
         // Init V = {v | v <- graph}
-        allNodes = new HashSet<Node<Integer>>(graph.getNodes()); // NOTE possible need
-                                                                 // graph.getNodes()
+        allNodes = new HashSet<Node<Integer>>(graph.getNodes());
+
         System.err.print("start allNodes:");
         System.err.println(Arrays.toString(allNodes.toArray()));
 
@@ -66,7 +63,7 @@ public class Prim {
     private void initDistances() {
         // set k = node, v = new Edge(node, source, distance from node to source)
         for (Node node : allNodes) {
-            distances.put(node, new Edge(node, source, dist(node, source))); /*NOTE okay to create new edge?*/
+            distances.put(node, new Edge(node, source, dist(node, source)));
         }
 
         // remove source node (already in mst)
